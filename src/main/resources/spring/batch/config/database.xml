@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/jdbc 
+		http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd">
+
+	<!-- connect to database -->
+	<bean id="spiritDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<!-- <property name="url" value="jdbc:oracle:thin:@hypnos-test:1521:testact0" /> -->
+		<property name="url" value="jdbc:oracle:thin:@hypnos:1521:act0" />
+		<property name="username" value="spirit" />
+		<property name="password" value="vLKhUXLIGF" />
+	</bean>
+	
+	<bean id="sendDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@hypnos:1521:act0" />
+		<!-- <property name="url" value="jdbc:oracle:thin:@hypnos-test:1521:testact0" /> -->
+		<!-- <property name="url" value="jdbc:oracle:thin:@hypnos-dev:1521:devact0" /> -->
+		<property name="username" value="send" />
+		<property name="password" value="s3nd_123_!*" />
+	</bean>	
+	
+	<!-- <bean id="osirisDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@hypnos:1521:act0" />
+		<property name="url" value="jdbc:oracle:thin:@hypnos-test:1521:testact0" />
+		<property name="url" value="jdbc:oracle:thin:@hypnos-dev:1521:devact0" />
+		<property name="username" value="osiris" />
+		<property name="password" value="fY4_AbX$KWcjdHNF" />
+	</bean> -->	
+	
+	<bean id="transactionManager" class="org.springframework.batch.support.transaction.ResourcelessTransactionManager" />
+
+</beans>

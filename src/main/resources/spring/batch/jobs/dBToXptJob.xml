@@ -1,0 +1,212 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- Get data from properties file -->
+	<context:property-placeholder location="classpath:dbToXpt.properties" />
+
+	<!--JOB -->
+	<batch:job id="dBToXptJob">
+		<batch:step id="init" next="dsDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="initItemReader" writer="initWriter" commit-interval="${commit-itvl}"/>
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="dsDataToXpt" next="bwDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="dsReader" processor="dsProcessor" writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+ 		<batch:step id="bwDataToXpt" next="bgDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="bwReader" processor="bwProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+ 		<batch:step id="bgDataToXpt" next="clDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="bgReader" processor="bgProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="clDataToXpt" next="pmDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="clReader" processor="clProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>	
+		<batch:step id="pmDataToXpt" next="exDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="pmReader" processor="pmProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="exDataToXpt" next="fwDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="exReader" processor="exProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="fwDataToXpt" next="pooldefDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="fwReader" processor="fwProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="pooldefDataToXpt" next="vsDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="pooldefReader" processor="pooldefProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>	
+		<batch:step id="vsDataToXpt" next="seDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="vsReader" processor="vsProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="seDataToXpt" next="teDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="seReader" processor="seProcessor" writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>			
+		<batch:step id="teDataToXpt" next="taDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="teReader" processor="teProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="taDataToXpt" next="txDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="taReader" processor="taProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="txDataToXpt" next="dmDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="txReader" processor="txProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="dmDataToXpt" next="omDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="databaseDMItemReader" processor="dmProcessor" writer="dmWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="omDataToXpt" next="pcDataToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="omReader" processor="omProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="pcDataToXpt" next="clearCtx">
+			<batch:tasklet>
+				<batch:chunk reader="pcReader" processor="pcProcessor"  writer="xptWriter" commit-interval="${default-commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="clearCtx" next="templatesToXpt">
+			<batch:tasklet>
+				<batch:chunk reader="dummyReader" writer="clearCtxWriter" commit-interval="${commit-itvl}"/>
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="templatesToXpt" >
+			<batch:tasklet>
+				<batch:chunk reader="templatesReader" writer="templatesWriter" commit-interval="${commit-itvl}"/>
+			</batch:tasklet>
+		</batch:step>
+	</batch:job>
+		
+		
+	<!-- READERS -->
+	<bean id="initItemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+		<property name="dataSource" ref="spiritDataSource" />
+        <property name="sql" value="${init_sql}" />
+		<property name="preparedStatementSetter">
+			<bean class="com.idorsia.research.send.readers.DatabaseStatementSetter">
+				<property name="stepExecution" value="#{stepExecution}" />
+			</bean>
+		</property>        
+        <property name="rowMapper">
+        	<bean class="com.idorsia.research.send.readers.InitRowMapper" />
+        </property>
+	</bean>
+	<bean id="databaseDMItemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+        <property name="dataSource" ref="spiritDataSource" />
+        <property name="sql" value="${dm_sql}" />
+		<property name="preparedStatementSetter">
+			<bean class="com.idorsia.research.send.readers.DatabaseStatementSetter">
+				<property name="stepExecution" value="#{stepExecution}" />
+			</bean>
+		</property>        
+        <property name="rowMapper">
+        	<bean class="com.idorsia.research.send.readers.DatabaseDMRowMapper" />
+        </property>
+    </bean>    
+    <bean id="databaseTFItemReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+        <property name="dataSource" ref="spiritDataSource" />
+        <property name="sql" value="${tf_sql}" />
+		<property name="preparedStatementSetter">
+			<bean class="com.idorsia.research.send.readers.DatabaseStatementSetter">
+				<property name="stepExecution" value="#{stepExecution}" />
+			</bean>
+		</property>        
+        <property name="rowMapper">
+        	<bean class="com.idorsia.research.send.readers.DatabaseTFRowMapper" />
+        </property>
+    </bean>
+    <bean id="dummyReader" class="org.springframework.batch.item.database.JdbcCursorItemReader" scope="step">
+        <property name="dataSource" ref="spiritDataSource" />
+        <property name="sql" value="${expend_sql}" />
+		<property name="preparedStatementSetter">
+			<bean class="com.idorsia.research.send.readers.DatabaseStatementSetter">
+				<property name="stepExecution" value="#{stepExecution}" />
+			</bean>
+		</property>        
+        <property name="rowMapper">
+        	<bean class="com.idorsia.research.send.readers.DatabaseDummyRowMapper" />
+        </property>
+    </bean>
+    <bean id="dsReader" class="com.idorsia.research.send.readers.DSReader" />
+    <bean id="bwReader" class="com.idorsia.research.send.readers.BWReader" />
+    <bean id="bgReader" class="com.idorsia.research.send.readers.BGReader" />
+    <bean id="clReader" class="com.idorsia.research.send.readers.CLReader" />
+    <bean id="pmReader" class="com.idorsia.research.send.readers.PMReader" />
+    <bean id="exReader" class="com.idorsia.research.send.readers.EXReader" />
+    <bean id="fwReader" class="com.idorsia.research.send.readers.FWReader" />
+    <bean id="pooldefReader" class="com.idorsia.research.send.readers.PoolDefReader" />
+    <bean id="vsReader" class="com.idorsia.research.send.readers.VSReader" />
+    <bean id="omReader" class="com.idorsia.research.send.readers.OMReader" />
+	<bean id="pcReader" class="com.idorsia.research.send.readers.PCReader" />    
+	<bean id="seReader" class="com.idorsia.research.send.readers.SEReader" />
+	<bean id="teReader" class="com.idorsia.research.send.readers.TEReader" />
+	<bean id="taReader" class="com.idorsia.research.send.readers.TAReader" />
+	<bean id="txReader" class="com.idorsia.research.send.readers.TXReader" />
+	<bean id="templatesReader" class="com.idorsia.research.send.readers.TemplatesReader" />
+    
+    
+    <!-- PROCESSORS -->
+    <bean id="dsProcessor" class="com.idorsia.research.send.processors.DSProcessor" />
+    <bean id="bwProcessor" class="com.idorsia.research.send.processors.BWProcessor" />
+    <bean id="bgProcessor" class="com.idorsia.research.send.processors.BGProcessor" />
+    <bean id="clProcessor" class="com.idorsia.research.send.processors.CLProcessor" />
+    <bean id="pmProcessor" class="com.idorsia.research.send.processors.PMProcessor" />
+    <bean id="exProcessor" class="com.idorsia.research.send.processors.EXProcessor" />
+    <bean id="fwProcessor" class="com.idorsia.research.send.processors.FWProcessor" />
+    <bean id="pooldefProcessor" class="com.idorsia.research.send.processors.PoolDefProcessor" />
+    <bean id="vsProcessor" class="com.idorsia.research.send.processors.VSProcessor" />
+    <bean id="omProcessor" class="com.idorsia.research.send.processors.OMProcessor" />
+    <bean id="dmProcessor" class="com.idorsia.research.send.processors.DMProcessor" />
+    <bean id="pcProcessor" class="com.idorsia.research.send.processors.PCProcessor" />
+    <bean id="seProcessor" class="com.idorsia.research.send.processors.SEProcessor" />
+    <bean id="teProcessor" class="com.idorsia.research.send.processors.TEProcessor" />
+    <bean id="taProcessor" class="com.idorsia.research.send.processors.TAProcessor" />
+    <bean id="txProcessor" class="com.idorsia.research.send.processors.TXProcessor" />
+    
+
+	<!-- WRITERS -->
+	<bean id="initWriter" class="com.idorsia.research.send.writers.InitWriter" />
+	<bean id="xptWriter" class="com.idorsia.research.send.writers.XPTWriter" />
+	<bean id="dmWriter" class="com.idorsia.research.send.writers.DMWriter" />
+	<bean id="clearCtxWriter" class="com.idorsia.research.send.writers.ClearCtxWriter" />
+	<bean id="templatesWriter" class="com.idorsia.research.send.writers.TemplatesWriter" />
+	
+	<!-- LISTENER -->
+	<bean id="dsStepListener" class="com.idorsia.research.send.listener.DsStepListener" />
+
+</beans>

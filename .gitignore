@@ -1,0 +1,8 @@
+.classpath
+.project
+.settings
+target/
+**/.settings/
+**/target/
+batch.log
+**/src/main/resources/sas/tool/R-4.1.1-win.zip

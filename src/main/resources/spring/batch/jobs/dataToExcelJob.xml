@@ -1,0 +1,751 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- Get data from properties file -->
+	<context:property-placeholder location="classpath:dataToExcel.properties" />
+
+	<!--JOB -->
+	<batch:job id="dataToExcelJob">
+		<batch:step id="bwDataToExcel" next="bgDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="bwCvsFileItemReader" writer="bwDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="bgDataToExcel" next="clDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="bgCvsFileItemReader" writer="bgDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="clDataToExcel" next="dmDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="clCvsFileItemReader" writer="clDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="dmDataToExcel" next="coDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="dmCvsFileItemReader" writer="dmDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="coDataToExcel" next="seDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="coCvsFileItemReader" writer="coDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="seDataToExcel" next="exDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="seCvsFileItemReader" writer="seDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="exDataToExcel" next="dsDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="exCvsFileItemReader" writer="exDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="dsDataToExcel" next="cvDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="dsCvsFileItemReader" writer="dsDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="cvDataToExcel" next="ddDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="cvCvsFileItemReader" writer="cvDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="ddDataToExcel" next="ecgDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="ddCvsFileItemReader" writer="ddDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>									
+		<batch:step id="ecgDataToExcel" next="fwDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="ecgCvsFileItemReader" writer="ecgDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>	
+		<batch:step id="fwDataToExcel" next="lbDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="fwCvsFileItemReader" writer="fwDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>				
+		<batch:step id="lbDataToExcel" next="maDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="lbCvsFileItemReader" writer="lbDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>						
+		<batch:step id="maDataToExcel" next="miDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="maCvsFileItemReader" writer="maDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="miDataToExcel" next="omDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="miCvsFileItemReader" writer="miDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>													
+		<batch:step id="omDataToExcel" next="pcDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="omCvsFileItemReader" writer="omDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="pcDataToExcel" next="pmDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="pcCvsFileItemReader" writer="pcDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="pmDataToExcel" next="ppDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="pmCvsFileItemReader" writer="pmDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+		<batch:step id="ppDataToExcel" next="reDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="ppCvsFileItemReader" writer="ppDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="reDataToExcel" next="scDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="reCvsFileItemReader" writer="reDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>	
+		<batch:step id="scDataToExcel" next="tfDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="scCvsFileItemReader" writer="scDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>	
+		<batch:step id="tfDataToExcel" next="vsDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="tfCvsFileItemReader" writer="tfDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="vsDataToExcel" next="teDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="vsCvsFileItemReader" writer="vsDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="teDataToExcel" next="taDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="teCvsFileItemReader" writer="teDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="taDataToExcel" next="txDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="taCvsFileItemReader" writer="taDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="txDataToExcel" next="tsDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="txCvsFileItemReader" writer="txDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="tsDataToExcel" next="pooldefDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="tsCvsFileItemReader" writer="tsDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>	
+		<batch:step id="pooldefDataToExcel" next="relrecDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="pooldefCvsFileItemReader" writer="pooldefDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>
+		<batch:step id="relrecDataToExcel">
+			<batch:tasklet>
+				<batch:chunk reader="relrecCvsFileItemReader" writer="relrecDataExcelWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>																																																																								
+	</batch:job>
+
+	<!-- MODELS -->
+	<bean id="bodyWeights" class="com.idorsia.research.send.domain.BodyWeights" scope="prototype" />
+	<bean id="bodyWeightGain" class="com.idorsia.research.send.domain.BodyWeightGain" scope="prototype" />		
+	<bean id="clinicalSigns" class="com.idorsia.research.send.domain.ClinicalSigns" scope="prototype" />
+	<bean id="demographics" class="com.idorsia.research.send.domain.Demographics" scope="prototype" />
+	<bean id="comments" class="com.idorsia.research.send.domain.Comments" scope="prototype" />
+	<bean id="subjectElements" class="com.idorsia.research.send.domain.SubjectElements" scope="prototype" />
+	<bean id="exposure" class="com.idorsia.research.send.domain.Exposure" scope="prototype" />
+	<bean id="disposition" class="com.idorsia.research.send.domain.Disposition" scope="prototype" />		
+	<bean id="cardioVascular" class="com.idorsia.research.send.domain.CardioVascular" scope="prototype" />
+	<bean id="deathDiagnosis" class="com.idorsia.research.send.domain.DeathDiagnosis" scope="prototype" />
+	<bean id="ecg" class="com.idorsia.research.send.domain.Ecg" scope="prototype" />
+	<bean id="foodWater" class="com.idorsia.research.send.domain.FoodWater" scope="prototype" />
+	<bean id="laboratory" class="com.idorsia.research.send.domain.Laboratory" scope="prototype" />
+	<bean id="macroscopic" class="com.idorsia.research.send.domain.Macroscopic" scope="prototype" />
+	<bean id="microscopic" class="com.idorsia.research.send.domain.Microscopic" scope="prototype" />
+	<bean id="organMeasurements" class="com.idorsia.research.send.domain.OrganMeasurements" scope="prototype" />
+	<bean id="palpableMasses" class="com.idorsia.research.send.domain.PalpableMasses" scope="prototype" />
+	<bean id="pharmacokineticsConcentrations" class="com.idorsia.research.send.domain.PharmacokineticsConcentrations" scope="prototype" />
+	<bean id="pharmacokineticsParameters" class="com.idorsia.research.send.domain.PharmacokineticsParameters" scope="prototype" />
+	<bean id="respiratory" class="com.idorsia.research.send.domain.Respiratory" scope="prototype" />
+	<bean id="subjectCharacteristics" class="com.idorsia.research.send.domain.SubjectCharacteristics" scope="prototype" />
+	<bean id="tumorFindings" class="com.idorsia.research.send.domain.TumorFindings" scope="prototype" />
+	<bean id="vitalSigns" class="com.idorsia.research.send.domain.VitalSigns" scope="prototype" />
+	<bean id="trialElements" class="com.idorsia.research.send.domain.TrialElements" scope="prototype" />
+	<bean id="trialArms" class="com.idorsia.research.send.domain.TrialArms" scope="prototype" />
+	<bean id="trialSets" class="com.idorsia.research.send.domain.TrialSets" scope="prototype" />
+	<bean id="trialSummary" class="com.idorsia.research.send.domain.TrialSummary" scope="prototype" />
+	<bean id="poolDefinition" class="com.idorsia.research.send.domain.PoolDefinition" scope="prototype" />
+	<bean id="relatedRecord" class="com.idorsia.research.send.domain.RelatedRecords" scope="prototype" />
+		
+	<!-- READERS -->
+	<bean id="bwCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${bw-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${bw_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="bodyWeights" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="bgCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${bg-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${bg_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="bodyWeightGain" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="clCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${cl-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${cl_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="clinicalSigns" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="dmCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${dm-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${dm_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="demographics" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="coCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${co-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${co_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="comments" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="seCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${se-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${se_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="subjectElements" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="exCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${ex-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${ex_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="exposure" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="dsCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">		
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${ds-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${ds_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="disposition" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="cvCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${cv-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${cv_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="cardioVascular" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="ddCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${dd-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${dd_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="deathDiagnosis" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>						
+	<bean id="ecgCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${ecg-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${ecg_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="ecg" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="fwCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${fw-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${fw_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="foodWater" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="lbCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${lb-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${lb_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="laboratory" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="maCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${ma-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${ma_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="macroscopic" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="miCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${mi-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${mi_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="microscopic" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="omCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${om-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${om_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="organMeasurements" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="pcCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${pc-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${pc_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="pharmacokineticsConcentrations" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+	<bean id="pmCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${pm-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${pm_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="palpableMasses" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="ppCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${pp-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${pp_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="pharmacokineticsParameters" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>			
+	<bean id="reCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${re-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${re_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="respiratory" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="scCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${sc-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${sc_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="subjectCharacteristics" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="tfCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${tf-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${tf_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="tumorFindings" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="vsCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${vs-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${vs_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="vitalSigns" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="teCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${te-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${te_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="trialElements" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="taCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${ta-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${ta_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="trialArms" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="txCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${tx-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${tx_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="trialSets" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="tsCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${ts-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${ts_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="trialSummary" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="pooldefCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${pooldef-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${pooldef_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="poolDefinition" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="relrecCvsFileItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<property name="resource" value="classpath:${relrec-input}" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${relrec_cols}" />
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="relatedRecord" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<!-- WRITERS -->
+	<bean id="bwDataExcelWriter" class="com.idorsia.research.send.writers.BWDataExcelWriter" />
+	<bean id="bgDataExcelWriter" class="com.idorsia.research.send.writers.BGDataExcelWriter" />		
+	<bean id="clDataExcelWriter" class="com.idorsia.research.send.writers.CLDataExcelWriter" />
+	<bean id="dmDataExcelWriter" class="com.idorsia.research.send.writers.DMDataExcelWriter" />
+	<bean id="coDataExcelWriter" class="com.idorsia.research.send.writers.CODataExcelWriter" />
+	<bean id="seDataExcelWriter" class="com.idorsia.research.send.writers.SEDataExcelWriter" />
+	<bean id="exDataExcelWriter" class="com.idorsia.research.send.writers.EXDataExcelWriter" />		
+	<bean id="dsDataExcelWriter" class="com.idorsia.research.send.writers.DSDataExcelWriter" />
+	<bean id="cvDataExcelWriter" class="com.idorsia.research.send.writers.CVDataExcelWriter" />
+	<bean id="ddDataExcelWriter" class="com.idorsia.research.send.writers.DDDataExcelWriter" />
+	<bean id="ecgDataExcelWriter" class="com.idorsia.research.send.writers.ECGDataExcelWriter" />
+	<bean id="fwDataExcelWriter" class="com.idorsia.research.send.writers.FWDataExcelWriter" />
+	<bean id="lbDataExcelWriter" class="com.idorsia.research.send.writers.LBDataExcelWriter" />
+	<bean id="maDataExcelWriter" class="com.idorsia.research.send.writers.MADataExcelWriter" />
+	<bean id="miDataExcelWriter" class="com.idorsia.research.send.writers.MIDataExcelWriter" />
+	<bean id="omDataExcelWriter" class="com.idorsia.research.send.writers.OMDataExcelWriter" />
+	<bean id="pcDataExcelWriter" class="com.idorsia.research.send.writers.PCDataExcelWriter" />
+	<bean id="pmDataExcelWriter" class="com.idorsia.research.send.writers.PMDataExcelWriter" />
+	<bean id="ppDataExcelWriter" class="com.idorsia.research.send.writers.PPDataExcelWriter" />
+	<bean id="reDataExcelWriter" class="com.idorsia.research.send.writers.REDataExcelWriter" />
+	<bean id="scDataExcelWriter" class="com.idorsia.research.send.writers.SCDataExcelWriter" />
+	<bean id="tfDataExcelWriter" class="com.idorsia.research.send.writers.TFDataExcelWriter" />
+	<bean id="vsDataExcelWriter" class="com.idorsia.research.send.writers.VSDataExcelWriter" />
+	<bean id="teDataExcelWriter" class="com.idorsia.research.send.writers.TEDataExcelWriter" />
+	<bean id="taDataExcelWriter" class="com.idorsia.research.send.writers.TADataExcelWriter" />
+	<bean id="txDataExcelWriter" class="com.idorsia.research.send.writers.TXDataExcelWriter" />
+	<bean id="tsDataExcelWriter" class="com.idorsia.research.send.writers.TSDataExcelWriter" />
+	<bean id="pooldefDataExcelWriter" class="com.idorsia.research.send.writers.POOLDEFDataExcelWriter" />
+	<bean id="relrecDataExcelWriter" class="com.idorsia.research.send.writers.RELRECDataExcelWriter" />
+
+</beans>

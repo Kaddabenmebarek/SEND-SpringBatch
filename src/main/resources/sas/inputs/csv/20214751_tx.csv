@@ -1,0 +1,47 @@
+STUDYID,DOMAIN,SETCD,SET,TXSEQ,TXPARMCD,TXPARM,TXVAL
+20214751,TX,1,Control,1,ARMCD,Arm Code,1
+20214751,TX,1,Control,2,GRPLBL,Group Label,1
+20214751,TX,1,Control,3,SPGRPCD,Sponsor-Defined Group Code,1
+20214751,TX,1,Control,4,TRTDOS,Dose Level,0.0
+20214751,TX,1,Control,5,TRTDOSU,Dose Units,mg/kg/day
+20214751,TX,1,Control,6,TCNTRL,Control Type,VEHICLE CONTROL
+20214751,TX,1,Control,7,SPECIES,Species,RAT
+20214751,TX,1,Control,8,STRAIN,Strain/Substrain,WISTAR
+20214751,TX,1,Control,9,SPLANSUB,Planned Number of Subjects,6
+20214751,TX,1,Control,10,SPLRNAM,Test Subject Supplier,Charles River Laboratories Sandhofer Weg 7 97633 Sulzfeld Germany
+20214751,TX,2,ACT-709478 250 mg/kg/day,11,ARMCD,Arm Code,2
+20214751,TX,2,ACT-709478 250 mg/kg/day,12,GRPLBL,Group Label,2
+20214751,TX,2,ACT-709478 250 mg/kg/day,13,SPGRPCD,Sponsor-Defined Group Code,2
+20214751,TX,2,ACT-709478 250 mg/kg/day,14,TRTDOS,Dose Level,250.0
+20214751,TX,2,ACT-709478 250 mg/kg/day,15,TRTDOSU,Dose Units,mg/kg/day
+20214751,TX,2,ACT-709478 250 mg/kg/day,16,SPECIES,Species,RAT
+20214751,TX,2,ACT-709478 250 mg/kg/day,17,STRAIN,Strain/Substrain,WISTAR
+20214751,TX,2,ACT-709478 250 mg/kg/day,18,SPLANSUB,Planned Number of Subjects,6
+20214751,TX,2,ACT-709478 250 mg/kg/day,19,SPLRNAM,Test Subject Supplier,Charles River Laboratories Sandhofer Weg 7 97633 Sulzfeld Germany
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,20,ARMCD,Arm Code,3
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,21,GRPLBL,Group Label,3
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,22,SPGRPCD,Sponsor-Defined Group Code,3
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,23,TRTDOS,Dose Level,250-3.5-10
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,24,TRTDOSU,Dose Units,mg/kg/day
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,25,SPECIES,Species,RAT
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,26,STRAIN,Strain/Substrain,WISTAR
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,27,SPLANSUB,Planned Number of Subjects,6
+20214751,TX,3,ACT-709478 250mg/kg/day + NaI 3.5/10 mg/kg/day,28,SPLRNAM,Test Subject Supplier,Charles River Laboratories Sandhofer Weg 7 97633 Sulzfeld Germany
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,29,ARMCD,Arm Code,4
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,30,GRPLBL,Group Label,4
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,31,SPGRPCD,Sponsor-Defined Group Code,4
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,32,TRTDOS,Dose Level,250-35
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,33,TRTDOSU,Dose Units,mg/kg/day
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,34,SPECIES,Species,RAT
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,35,STRAIN,Strain/Substrain,WISTAR
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,36,SPLANSUB,Planned Number of Subjects,6
+20214751,TX,4,ACT-709478 250mg/kg/day + NaI 35 mg/kg/day,37,SPLRNAM,Test Subject Supplier,Charles River Laboratories Sandhofer Weg 7 97633 Sulzfeld Germany
+20214751,TX,5,NaI 35/10 mg/kg/day,38,ARMCD,Arm Code,5
+20214751,TX,5,NaI 35/10 mg/kg/day,39,GRPLBL,Group Label,5
+20214751,TX,5,NaI 35/10 mg/kg/day,40,SPGRPCD,Sponsor-Defined Group Code,5
+20214751,TX,5,NaI 35/10 mg/kg/day,41,TRTDOS,Dose Level,35-10
+20214751,TX,5,NaI 35/10 mg/kg/day,42,TRTDOSU,Dose Units,mg/kg/day
+20214751,TX,5,NaI 35/10 mg/kg/day,43,SPECIES,Species,RAT
+20214751,TX,5,NaI 35/10 mg/kg/day,44,STRAIN,Strain/Substrain,WISTAR
+20214751,TX,5,NaI 35/10 mg/kg/day,45,SPLANSUB,Planned Number of Subjects,6
+20214751,TX,5,NaI 35/10 mg/kg/day,46,SPLRNAM,Test Subject Supplier,Charles River Laboratories Sandhofer Weg 7 97633 Sulzfeld Germany

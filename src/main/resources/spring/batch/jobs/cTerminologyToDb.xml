@@ -1,0 +1,81 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	<!-- Get data from properties file -->
+	<context:property-placeholder location="classpath:cTImport.properties" />
+
+	<!--JOB -->
+	<batch:job id="cTerminologyToDbJob">
+		<batch:step id="cTerminologyToDbStep">
+			<!-- <batch:tasklet task-executor="cTerminologyTaskExecutor" transaction-manager="transactionManager"> -->
+			<batch:tasklet transaction-manager="transactionManager">
+				<batch:chunk reader="cTerminologyItemReader" processor="cTerminologyProcessor" writer="cTerminologyDbWriter" commit-interval="${commit-itvl}" />
+			</batch:tasklet>
+		</batch:step>		
+	</batch:job>
+	
+	
+	<!-- TaskExecutor used for multi threading -->
+<!-- 	<bean id="cTerminologyTaskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="${cterm-corePoolSize}"/>
+		<property name="maxPoolSize" value="${cterm-maxPoolSize}"/>
+		<property name="queueCapacity" value="${cterm-queueCapacity}"/>
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />
+	</bean> -->
+		
+	<!-- READERS -->
+	<bean id="cTerminologyItemReader" class="org.springframework.batch.item.file.FlatFileItemReader">
+		<property name="strict" value="false" />
+		<!-- <property name="resource" value="classpath:${cterm-input-folder}${cterm-input-extension}" /> -->
+		<property name="resource" value="file:C:\\Idorsia_WS\\SEND-SpringBatch\\project\\src\\main\\resources\\sas\\inputs\\CT\\SEND_Terminology.txt" />
+		<property name="linesToSkip" value="1" />
+		<property name="lineMapper">
+			<bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+				<property name="lineTokenizer">
+					<bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+						<property name="names" value="${cterm_cols}" />
+						<property name="delimiter" value="|"/>
+					</bean>
+				</property>
+				<property name="fieldSetMapper">
+					<bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+						<property name="prototypeBeanName" value="sendTerminology" />
+					</bean>
+				</property>
+			</bean>
+		</property>
+	</bean>	
+ 	
+    <!-- PROCESSORS -->
+    <bean id="cTerminologyProcessor" class="com.idorsia.research.send.processors.CTerminologyProcessor" />
+
+	<!-- WRITERS -->
+	  <bean id="cTerminologyDbWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
+		<!-- <property name="dataSource" ref="osirisDataSource" /> -->
+		<property name="dataSource" ref="sendDataSource" />
+		<property name="sql">
+		  <value>
+	            <![CDATA[
+	            insert into SEND_TERMINOLOGY (ID, CODE, CODELIST_CODE, CODELIST_EXTENSIBLE, CODELIST_NAME, CDISC_SUBMISSION_VALUE, CDISC_SYNONYM, CDISC_DEFINITION, NCI_PREFERED_TERM, CT_VERSION) 
+				values (SEND_TERMINOLOGY_SEQ.NEXTVAL, :code, :codelistCode, :codelistExtensible, :codelistName, :cDISCSubmissionValue, :cDISCSynonym, :cDISCDefinition, :nCIPreferredTerm, TO_DATE(:dateVersion,'YYYY-MM-DD'))
+	            ]]>
+		  </value>
+		</property>
+		<property name="itemSqlParameterSourceProvider">
+			<bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
+		</property>
+	  </bean>	
+
+	<!-- Pojo -->
+	<bean id="sendTerminology" class="com.idorsia.research.send.domain.SendTerminology" />
+
+</beans>

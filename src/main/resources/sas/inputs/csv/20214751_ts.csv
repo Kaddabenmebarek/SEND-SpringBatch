@@ -1,0 +1,48 @@
+STUDYID,DOMAIN,TSSEQ,TSGRPID,TSPARMCD,TSPARM,TSVAL
+20214751,TS,1,,AGE,Age,6
+20214751,TS,1,,AGEU,Age Unit,WEEKS
+20214751,TS,1,,DOSDUR,Dosing Duration,P45D
+20214751,TS,1,,EXPENDTC,Experimental End Date,2018-11-23
+20214751,TS,1,,EXPSTDTC,Experimental Start Date,2018-10-09
+20214751,TS,1,,GLPTYP,Good Laboratory Practice Type,NONE
+20214751,TS,1,,ROUTE,Route of Administration,ORAL GAVAGE
+20214751,TS,1,,SDESIGN,Study Design,PARALLEL
+20214751,TS,1,,SNDIGVER,SEND Implementation Guide Version,SEND Implementation Guide Version 3.0
+20214751,TS,1,,SNDCTVER,SEND Controlled Terminology Version,SEND Terminology 2019-03-29
+20214751,TS,1,,SPECIES,Species,RAT
+20214751,TS,1,,SPLRNAM,Test Subject Supplier,Charles River Laboratories Sandhofer Weg 7 97633 Sulzfeld Germany
+20214751,TS,1,,SPREFID,Sponsor's Study Reference ID,T-18.074
+20214751,TS,1,,SSPONSOR,Sponsoring Organization,Idorsia Pharmaceuticals Ltd
+20214751,TS,1,,STCAT,Study Category,TOX
+20214751,TS,1,,STDIR,Study Director,Marianne Treher
+20214751,TS,1,,STRAIN,Strain/Substrain,WISTAR
+20214751,TS,1,,STSTDTC,Study Start Date,2018-10-03
+20214751,TS,1,,STITLE,Study Title,ACT-709478: 6-week repeated-dose mechanistic study in Wistar rats to characterize effect of iodide supplementation on thyroid parameters (non-GLP)
+20214751,TS,1,,SSTYP,Study Type,REPEAT DOSE TOXICITY
+20214751,TS,1,3,TRT,Investigational Therapy or Treatment,ACT-709478
+20214751,TS,2,3,TRT,Investigational Therapy or Treatment,ACT-709478/NaI
+20214751,TS,1,,TFCNTRY,Test Facility Country,CHE
+20214751,TS,1,,TSTFLOC,Test Facility Location,Hegenheimermattweg 91 4123 Allschwil
+20214751,TS,1,,TSTFNAM,Test Facility Name,Idorsia Pharmaceuticals Ltd
+20214751,TS,1,2,TRMSAC,Time to Terminal Sacrifice,P45D
+20214751,TS,2,1,TRMSAC,Time to Terminal Sacrifice,P31D
+20214751,TS,1,,TRTCAS,Primary Treatment CAS Registry Number,NOT AVAILABLE
+20214751,TS,1,,TRTV,Treatment Vehicle,Methylcellulose 0.5% / polyoxyethylene sorbitan monooleate (Tween 80) 0.5% / water (w/v/v)
+20214751,TS,1,2,DOSENDTC,End Date/Time of Dose Interval,2018-11-22
+20214751,TS,2,1,DOSENDTC,End Date/Time of Dose Interval,2018-11-08
+20214751,TS,1,2,DOSSTDTC,Start Date/Time of Dose Interval,2018-10-09
+20214751,TS,2,1,DOSSTDTC,Start Date/Time of Dose Interval,2018-10-09
+20214751,TS,1,,SLENGTH,Study Length,P45D
+20214751,TS,1,,PINV,Principal Investigator,Barbara Galmiche
+20214751,TS,1,,SPLANSUB,Planned Number of Subjects,30
+20214751,TS,1,,SEXPOP,Sex of Participants,F
+20214751,TS,1,,STENDTC,Study End Date,2019-09-06
+20214751,TS,1,,TRTUNII,Primary Treatment Unique Ingredient ID,NOT AVAILABLE
+20214751,TS,1,,TSCNTRY,Test Site Country,FRA
+20214751,TS,1,,TSLOC,Test Site Location,1 Avenue Bourgelat F-69280 Marcy L'Etoile
+20214751,TS,1,,TSNAM,Test Site Name,Iodolab
+20214751,TS,1,,WATER,Drinking Water,Community tap-water from Allschwil
+20214751,TS,1,,WTRDLVRY,Water Delivery,ad libitum
+20214751,TS,1,,GLPFL,GLP Flag,N
+20214751,TS,1,,PCLASS,Pharmacologic Class,NOT AVAILABLE
+20214751,TS,1,,PDOSFRQ,Planned Dose Frequency,QD
