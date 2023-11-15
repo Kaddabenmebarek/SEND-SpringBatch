@@ -10,9 +10,9 @@
 	<bean id="spiritDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<!-- <property name="url" value="jdbc:oracle:thin:@hypnos-test:1521:testact0" /> -->
-		<property name="url" value="jdbc:oracle:thin:@hypnos:1521:act0" />
-		<property name="username" value="spirit" />
-		<property name="password" value="vLKhUXLIGF" />
+		<property name="url" value="jdbc:oracle:thin:@**:1521:**" />
+		<property name="username" value="**" />
+		<property name="password" value="**" />
 	</bean>
 	
 	<bean id="sendDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
